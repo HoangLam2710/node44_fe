@@ -41,3 +41,8 @@ export const registerAPI = async (payload) => {
   const { data } = await axios.post(`${BASE_URL}/auth/register`, payload);
   return data;
 };
+
+export const loginAPI = async (payload) => {
+  const { data } = await axios.post(`${BASE_URL}/auth/login`, payload);
+  return data;
+};
