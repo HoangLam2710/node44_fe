@@ -5,7 +5,11 @@ import { toast } from "react-toastify";
 import ReactFacebookLogin from "react-facebook-login";
 
 import { Videos, ChannelCard } from ".";
-import { loginAPI, loginFacebookAPI } from "../utils/fetchFromAPI";
+import {
+  loginAPI,
+  loginAsyncKeyAPI,
+  loginFacebookAPI,
+} from "../utils/fetchFromAPI";
 
 const Login = () => {
   const [channelDetail, setChannelDetail] = useState();
@@ -20,7 +24,7 @@ const Login = () => {
     const email = document.getElementById("email").value;
     const pass = document.getElementById("pass").value;
 
-    loginAPI({ email, pass })
+    loginAsyncKeyAPI({ email, pass })
       .then((result) => {
         toast.success(result.message);
         localStorage.setItem("LOGIN_USER", result.data);
@@ -30,6 +34,16 @@ const Login = () => {
         console.log(err.response.data.message);
         toast.error(err.response.data.message);
       });
+    // loginAPI({ email, pass })
+    //   .then((result) => {
+    //     toast.success(result.message);
+    //     localStorage.setItem("LOGIN_USER", result.data);
+    //     navigate("/");
+    //   })
+    //   .catch((err) => {
+    //     console.log(err.response.data.message);
+    //     toast.error(err.response.data.message);
+    //   });
   };
 
   const handleLoginFacebook = (response) => {
