@@ -15,6 +15,7 @@ import InfoUser from "./components/InfoUser";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import Footer from "./components/Footer";
+import ForgotPassword from "./components/ForgotPassword";
 
 const App = () => (
   <>
@@ -31,6 +32,7 @@ const App = () => (
           <Route path="/info/:id" element={<InfoUser />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/search/:searchTerm" element={<SearchFeed />} />
         </Routes>
         <Footer />

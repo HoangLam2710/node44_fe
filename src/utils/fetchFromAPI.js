@@ -127,3 +127,19 @@ export const loginFacebookAPI = async (payload) => {
   );
   return data;
 };
+
+export const forgotPasswordAPI = async (payload) => {
+  const { data } = await axiosInstance.post(
+    `${BASE_URL}/auth/forgot-password`,
+    payload,
+  );
+  return data;
+};
+
+export const resetPasswordAPI = async (payload) => {
+  const { data } = await axiosInstance.post(
+    `${BASE_URL}/auth/reset-password`,
+    payload,
+  );
+  return data;
+};

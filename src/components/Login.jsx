@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Box, CardMedia } from "@mui/material";
 import { toast } from "react-toastify";
 import ReactFacebookLogin from "react-facebook-login";
@@ -77,6 +77,13 @@ const Login = () => {
             </label>
             <input className="form-control" id="pass" />
           </div>
+
+          <div className="col-md-12 d-flex justify-content-end">
+            <Link to="/forgot-password" className="text-primary">
+              Forgot Password
+            </Link>
+          </div>
+
           <div className="col-12">
             <button
               onClick={handleLogin}
