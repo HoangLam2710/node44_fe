@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Box, CardMedia } from "@mui/material";
 import { toast } from "react-toastify";
+import QRCode from "qrcode";
 
 import { Videos, ChannelCard } from ".";
 import { registerAPI } from "../utils/fetchFromAPI";
@@ -9,6 +10,8 @@ import { registerAPI } from "../utils/fetchFromAPI";
 const SignUp = () => {
   const [channelDetail, setChannelDetail] = useState();
   const [videos, setVideos] = useState(null);
+  const [isQrScanned, setIsQrScanned] = useState(false);
+  const [qrCode, setQrCode] = useState(null);
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -21,15 +24,28 @@ const SignUp = () => {
     const pass = document.getElementById("pass").value;
 
     registerAPI({ fullName, email, pass })
-      .then((data) => {
-        console.log(data);
-        toast.success(data.message);
-        navigate("/login");
+      .then((result) => {
+        const secret = result.data.secret;
+        const otpauth = `otpauth://totp/${email}?secret=${secret}&issuer=Node44`;
+        QRCode.toDataURL(otpauth)
+          .then((qrCodeUrl) => {
+            setQrCode(qrCodeUrl);
+            toast.success(result.message);
+          })
+          .catch((err) => {});
+
+        // toast.success(result.message);
+        // navigate("/login");
       })
       .catch((err) => {
         console.log(err.response.data.message);
         toast.error(err.response.data.message);
       });
+  };
+
+  const handleQrScanConfirmation = () => {
+    setIsQrScanned(true);
+    navigate("/login");
   };
 
   return (
@@ -72,6 +88,20 @@ const SignUp = () => {
           </div>
         </form>
       </div>
+
+      {qrCode && (
+        <div className="text-center mt-4">
+          <h4>Scan the QR Code with Google Authenticator</h4>
+          <img src={qrCode} alt="QR Code" />
+          <button
+            onClick={handleQrScanConfirmation}
+            type="button"
+            className="btn btn-success mt-3"
+          >
+            I've Scanned the QR Code
+          </button>
+        </div>
+      )}
     </div>
   );
 };

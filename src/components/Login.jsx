@@ -31,7 +31,6 @@ const Login = () => {
         navigate("/");
       })
       .catch((err) => {
-        console.log(err.response.data.message);
         toast.error(err.response.data.message);
       });
     // loginAPI({ email, pass })
@@ -41,7 +40,6 @@ const Login = () => {
     //     navigate("/");
     //   })
     //   .catch((err) => {
-    //     console.log(err.response.data.message);
     //     toast.error(err.response.data.message);
     //   });
   };
