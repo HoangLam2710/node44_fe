@@ -23,8 +23,9 @@ const Login = () => {
   const handleLogin = () => {
     const email = document.getElementById("email").value;
     const pass = document.getElementById("pass").value;
+    const code = document.getElementById("code").value;
 
-    loginAsyncKeyAPI({ email, pass })
+    loginAsyncKeyAPI({ email, pass, code })
       .then((result) => {
         toast.success(result.message);
         localStorage.setItem("LOGIN_USER", result.data);
@@ -80,6 +81,13 @@ const Login = () => {
             <Link to="/forgot-password" className="text-primary">
               Forgot Password
             </Link>
+          </div>
+
+          <div className="col-md-3">
+            <label htmlFor="inputEmail4" className="form-label">
+              Code
+            </label>
+            <input className="form-control" id="code" />
           </div>
 
           <div className="col-12">
