@@ -143,3 +143,8 @@ export const resetPasswordAPI = async (payload) => {
   );
   return data;
 };
+
+export const getUsersAPI = async () => {
+  const { data } = await axiosInstance.get(`${BASE_URL}/users/get-users`);
+  return data;
+};
